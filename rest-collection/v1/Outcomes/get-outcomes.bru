@@ -1,11 +1,11 @@
 meta {
-  name: Ping
+  name: get-outcomes
   type: http
   seq: 1
 }
 
 get {
-  url: {{url}}/api/ping
+  url: {{baseUrl}}/{{version}}/get-outcomes
   body: none
   auth: none
 }
