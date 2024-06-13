@@ -20,7 +20,6 @@ func UpdateOutcomeHandler(ctx *gin.Context) {
 	ctx.BindJSON(&req)
 
 	if err := req.ValidateUpdateOutcomeRequest(); err != nil {
-		logger.Errorf("Validation error: %v", err.Error())
 		sendError(ctx, http.StatusBadRequest, err.Error())
 		return
 	}

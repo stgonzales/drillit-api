@@ -13,7 +13,6 @@ func CreateOutcomeHandler(ctx *gin.Context) {
 	ctx.BindJSON(&req)
 
 	if err := req.ValidateCreateOutcomeRequest(); err != nil {
-		logger.Errorf("Validation error: %v", err.Error())
 		sendError(ctx, http.StatusBadRequest, err.Error())
 		return
 	}
@@ -24,7 +23,6 @@ func CreateOutcomeHandler(ctx *gin.Context) {
 	}
 
 	if err := db.Create(&outcome).Error; err != nil {
-		logger.Errorf("Failed to create outcome: %v", err.Error())
 		sendError(ctx, http.StatusInternalServerError, "error creating outcome")
 		return
 	}

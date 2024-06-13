@@ -1,19 +1,27 @@
 package handler
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/stgonzles/drillit-api/schemas"
 )
 
-func GetOutcomesHandler(ctx *gin.Context) {
-	outcomes := []schemas.Outcome{}
+func GetOutcomeHandler(ctx *gin.Context) {
 
-	if err := db.Find(&outcomes).Error; err != nil {
-		sendError(ctx, http.StatusInternalServerError, "error listing outcomes")
+	id := ctx.Query("id")
+	if id == "" {
+		sendError(ctx, http.StatusBadRequest, errRequiredParam("id", "query parameter").Error())
 		return
 	}
 
-	sendSuccess(ctx, outcomes)
+	outcome := schemas.Outcome{}
+
+	if err := db.First(&outcome, id).Error; err != nil {
+		sendError(ctx, http.StatusNotFound, fmt.Sprintf("outcome id %s not found", id))
+		return
+	}
+
+	sendSuccess(ctx, outcome)
 }
