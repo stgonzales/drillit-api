@@ -23,5 +23,6 @@ func initializeRoutes(r *gin.Engine) {
 	{
 		v1.GET("/get-outcomes", handler.GetOutcomesHandler)
 		v1.POST("/create-outcome", handler.CreateOutcomeHandler)
+		v1.DELETE("/delete-outcome", handler.DeleteOutcomeHandler)
 	}
 }
