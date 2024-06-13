@@ -4,8 +4,14 @@ meta {
   seq: 1
 }
 
-get {
-  url: {{baseUrl}}/{{version}}/get-outcomes
-  body: none
+delete {
+  url: {{baseUrl}}/{{version}}/delete-outcome
+  body: json
   auth: none
+}
+
+body:json {
+  {
+    "id": 1
+  }
 }

@@ -16,3 +16,6 @@ db/
 
 #Environment Variables
 .env
+
+#Misc
+.vscode

@@ -10,17 +10,21 @@ import (
 
 func InitializeSQLite() (*gorm.DB, error) {
 	logger := GetLogger("sqlite")
+	logger.Info("GORM connecting to db and automigrating")
 
-	dbPath := "./db/main.db"
+
+	dbPath := "./db/sqlite.db"
 
 	_, err := os.Stat(dbPath)
 	if os.IsNotExist(err) {
 		logger.Info("DB file not found, creating...")
+		
 		err = os.MkdirAll("./db", os.ModePerm)
 		if err != nil {
 			logger.Errorf("Failed to create folder 'db': %v", err)
 			return nil, err
 		}
+
 		file, err := os.Create(dbPath)
 		if err != nil {
 			logger.Errorf("Failed to create DB file: %v", err)
@@ -31,7 +35,6 @@ func InitializeSQLite() (*gorm.DB, error) {
 	}
 
 	db, err := gorm.Open(sqlite.Open(dbPath), &gorm.Config{})
-
 	if err != nil {
 		logger.Errorf("Failed to open SQLite file: %v", err)
 		return nil, err
@@ -43,5 +46,6 @@ func InitializeSQLite() (*gorm.DB, error) {
 		return nil, err
 	}
 
+	logger.Info("GORM connection and automigration completed!")
 	return db, nil
 }

@@ -6,6 +6,13 @@ meta {
 
 post {
   url: {{baseUrl}}/{{version}}/create-outcome
-  body: none
+  body: json
   auth: none
+}
+
+body:json {
+  {
+    "name": "Rent",
+    "amount": 795
+  }
 }
