@@ -8,11 +8,11 @@ import (
 )
 
 func CreateOutcomeHandler(ctx *gin.Context) {
-	req := CreateOutcomeRequest{}
+	req := OutcomeRequest{}
 
 	ctx.BindJSON(&req)
 
-	if err := req.Validate(); err != nil {
+	if err := req.ValidateCreateOutcomeRequest(); err != nil {
 		logger.Errorf("Validation error: %v", err.Error())
 		sendError(ctx, http.StatusBadRequest, err.Error())
 		return

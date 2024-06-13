@@ -6,13 +6,13 @@ func errRequiredParam(p, t string) error {
 	return fmt.Errorf("param '%s' of type '%s' is required", p, t)
 }
 
-type CreateOutcomeRequest struct {
+type OutcomeRequest struct {
 	Name string `json:"name"`
 	Amount int64 `json:"amount"`
 }
 
-func (r *CreateOutcomeRequest) Validate() error {
-	if r.Name == "nil" && r.Amount <= 0 {
+func (r *OutcomeRequest) ValidateCreateOutcomeRequest() error {
+	if r.Name == "" && r.Amount <= 0 {
 		return fmt.Errorf("malformed request body")
 	}
 
@@ -25,4 +25,13 @@ func (r *CreateOutcomeRequest) Validate() error {
 	}
 
 	return nil
+}
+
+func (r *OutcomeRequest) ValidateUpdateOutcomeRequest() error {
+	if r.Name != "" || r.Amount > 0 {
+		return nil
+	}
+	 
+	return fmt.Errorf("malformed request body, at least one field of type Outcome should be provided")
+
 }
